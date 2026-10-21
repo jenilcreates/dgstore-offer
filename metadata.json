@@ -1,0 +1,6 @@
+{
+  "name": "SlimSana Landing Page",
+  "description": "Official SlimSana health and wellness landing page with video presentation, personal story, and clear call-to-action.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
