@@ -4,17 +4,17 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { VideoPlayer } from './components/VideoPlayer';
 import { LandingPageConfig } from './types';
+import { ChevronDown } from 'lucide-react';
 
-const STORAGE_KEY = 'slimsana_landing_config_v4';
+const STORAGE_KEY = 'slimsana_landing_config_v8';
 
 const DEFAULT_CONFIG: LandingPageConfig = {
   videoUrl: 'https://www.youtube.com/embed/qqVMmCIfW6M?si=BcJU_tm7SNxQPcEw',
-  videoThumbnailUrl: '/assets/video_thumbnail.png',
+  videoThumbnailUrl: '/assets/competition_banner_clean.webp',
   ctaUrl: 'https://myslimsana.com/slimsana-vsl-fe?aff=jenildgstore&cam=CAMPAIGNKEY',
-  ctaTextLine1: 'Ja! Ich möchte die',
-  ctaTextLine2: 'Lösung erfahren.',
+  ctaTextLine1: 'Ja! Ich möchte die Lösung erfahren',
+  ctaTextLine2: '',
   openInNewTab: true,
 };
 
@@ -47,6 +47,15 @@ export default function App() {
     }
   };
 
+  const handleScrollToCta = () => {
+    const el = document.getElementById('main-cta');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      handleCtaClick();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col font-['Montserrat',sans-serif] selection:bg-sky-200 selection:text-black">
       {/* =========================================================================
@@ -54,27 +63,51 @@ export default function App() {
           ========================================================================= */}
       <header className="w-full pt-12 md:pt-16 pb-8 md:pb-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Main Headline */}
+          {/* Main Headline with 2nd line in sky blue */}
           <h1 className="text-2xl sm:text-3xl md:text-[38px] lg:text-[42px] font-black text-black tracking-tight leading-[1.2] mb-4">
             SlimSana unterstützt Deine gesündere, glücklichere{' '}
             <br className="hidden sm:inline" />
-            Alltagsroutine mit{' '}
-            <span className="text-[#38bdf8]">Leichtigkeit und Selbstvertrauen</span>
+            <span style={{ color: '#33B1FF' }} className="text-sky-blue">
+              Alltagsroutine mit Leichtigkeit und Selbstvertrauen
+            </span>
           </h1>
 
           {/* Subheading */}
-          <p className="max-w-2xl mx-auto text-gray-700 text-sm sm:text-base md:text-[17px] font-normal leading-relaxed mb-8 md:mb-10 px-2">
+          <p className="max-w-2xl mx-auto text-gray-700 text-sm sm:text-base md:text-[17px] font-normal leading-relaxed mb-6 md:mb-8 px-2">
             SlimSana fügt sich mühelos in Deine tägliche Wohlfühlroutine ein – mit einfachen,
             unterstützenden Gewohnheiten. Fühle Dich gut dabei, einen praktischen Schritt nach vorne
             zu machen, ganz ohne extreme Regeln oder komplizierte Pläne.
           </p>
 
-          {/* Video Player */}
-          <div className="w-full">
-            <VideoPlayer
-              videoUrl={config.videoUrl}
-              thumbnailUrl={config.videoThumbnailUrl}
-            />
+          {/* Top Affiliate Button that scrolls down to main CTA */}
+          <div className="mb-8 md:mb-10 flex justify-center">
+            <button
+              onClick={handleScrollToCta}
+              type="button"
+              className="group inline-flex items-center gap-2 bg-[#F4BA43] hover:bg-[#ebaa32] active:bg-[#df9f27] text-black font-extrabold text-base sm:text-lg md:text-xl px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border border-[#e0a42f]/30 select-none"
+              aria-label="Ja! Ich möchte die Lösung erfahren"
+            >
+              <span className="leading-tight tracking-tight">
+                Ja! Ich möchte die Lösung erfahren
+              </span>
+              <ChevronDown className="w-5 h-5 text-black group-hover:translate-y-0.5 transition-transform" />
+            </button>
+          </div>
+
+          {/* Header Banner Image (Clean Uploaded WebP) */}
+          <div className="w-full max-w-[840px] mx-auto px-4">
+            <div
+              onClick={handleScrollToCta}
+              className="relative aspect-video w-full rounded-md overflow-hidden bg-[#083A1A] shadow-xl group border border-gray-100 cursor-pointer flex items-center justify-center transition-transform hover:scale-[1.01]"
+              title="Klicken, um mehr zu erfahren"
+            >
+              <img
+                src="/assets/competition_banner_clean.webp"
+                alt="SlimSana vs. the competition"
+                className="w-full h-full object-contain"
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
       </header>
@@ -85,31 +118,86 @@ export default function App() {
       <section className="w-full bg-[#C2E8FF] py-6 md:py-8 px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-lg sm:text-xl md:text-[26px] lg:text-[28px] font-extrabold text-black tracking-tight leading-snug">
-            Was ist SlimSanas überraschendes Geheimnis, mit dem Abnehmziele endlich erreichbar werden?
+            Kennen Sie das frustrierende Gefühl?
           </h2>
         </div>
       </section>
 
       {/* =========================================================================
-          SECTION 3: NARRATIVE COPY (Deutsch)
+          SECTION 3: FRUSTRATING FEELING & GLP-1 STORY (Image + Text Underneath)
           ========================================================================= */}
-      <section className="w-full bg-white py-10 md:py-14 px-6">
-        <div className="max-w-[800px] mx-auto space-y-6 md:space-y-7 text-[#222222] text-sm sm:text-base md:text-[16.5px] leading-[1.65]">
-          <p>
-            Bleib am Ball – mit nur wenigen Minuten am Tag. Erfahre, wie Du mit weniger Aufwand spürbare Ergebnisse erzielst. Selbst wenn Du glaubst, dass Du es nie schaffst oder Deine Zeit nie kommen wird: Wir kennen dieses Gefühl nur zu gut! Statt ständig alles gleichzeitig zu jonglieren: Gewinne endlich Klarheit!
-          </p>
+      <section className="w-full bg-white py-12 md:py-16 px-6">
+        <div className="max-w-[840px] mx-auto">
+          {/* Centered Portrait Image with no borders */}
+          <div className="flex justify-center mb-8 md:mb-12">
+            <div className="w-full max-w-[320px] sm:max-w-[360px]">
+              <img
+                src="/assets/slimsana_bottles_portrait.webp"
+                alt="SlimSana Flaschen"
+                className="w-full h-auto object-contain mx-auto"
+                loading="lazy"
+              />
+            </div>
+          </div>
 
-          <p>
-            Für begrenzte Zeit: Entdecke SlimSana und beginne noch heute, Dein neues Leben zu gestalten. Lerne SlimSana kennen – Deinen einfachen Weg, Dich leichter, selbstbewusster und voller Energie zu fühlen, ganz ohne extreme Diätroutinen oder komplizierte Ernährungspläne.
-          </p>
+          {/* Simple Text Section Placed Under the Image */}
+          <div className="space-y-4 md:space-y-5 text-[#222222] text-sm sm:text-base md:text-[16px] leading-[1.65]">
+            <p>
+              Sie hören überall Geschichten von Menschen, die ihre Gewohnheiten ändern und sich gesünder fühlen. Freunde und Kollegen, die davon berichten, wie energiegeladen und ausgeglichen sie sind.
+            </p>
 
-          <p>
-            Genieße praktische Unterstützung, die perfekt in Deinen vollen Alltag passt und Dir hilft, gesündere Gewohnheiten Schritt für Schritt aufzubauen. Egal, ob Du ganz neu startest oder wieder auf Kurs kommen möchtest: SlimSana macht spürbare Fortschritte wieder greifbar.
-          </p>
+            <p>
+              Aber bei Ihnen? Fehlanzeige.
+            </p>
 
-          <p>
-            Mit klarer Führung, verlässlicher Qualität und einer Zufriedenheitsgarantie kannst Du den nächsten Schritt mit weniger Sorgen und vollem Vertrauen in Dein neues Ich gehen.
-          </p>
+            <p>
+              Ihr Hausarzt wiegelt ab: „Sie sind nicht krank genug für GLP-1-Medikamente.“
+            </p>
+
+            <p>
+              Die Privatpraxis verlangt mindestens 300 Euro pro Monat – Geld, das Sie einfach nicht haben.
+            </p>
+
+            <p>
+              Die Wartelisten sind endlos. Monate vergehen. Ihr Gewicht steigt immer weiter.
+            </p>
+
+            <p>
+              Und währenddessen kämpfen Sie jeden Tag gegen denselben unbarmherzigen Feind:
+            </p>
+
+            <p>
+              Der Heißhunger um 15:00 Uhr, der all Ihre Disziplin zerstört.
+            </p>
+
+            <p>
+              Der nächtliche Heißhunger auf Süßes, gegen den Ihr Wille vollkommen machtlos ist.
+            </p>
+
+            <p>
+              Die unkontrollierbaren Gelüste, die Sie zu einer Fremden im eigenen Körper machen.
+            </p>
+
+            <p>
+              Sie wissen genau, was Sie essen sollten. Sie kennen jeden Diät-Tipp. Aber Ihr Gehirn arbeitet gegen Sie.
+            </p>
+
+            <p>
+              Das war bisher die traurige Realität.
+            </p>
+
+            <p>
+              Was jahrelang Hollywood-Stars vorbehalten war, können Sie sich jetzt ganz einfach in die eigene Küche holen.
+            </p>
+
+            <p>
+              Eine Kapsel am Tag. Das ist alles, was Sie brauchen.
+            </p>
+
+            <p>
+              Keine komplizierten Schritte. Keine invasiven Methoden. Keine Terminprobleme. Keine Wartelisten.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -175,34 +263,38 @@ export default function App() {
       </section>
 
       {/* =========================================================================
-          SECTION 6: BOTTOM LIGHT BLUE BANNER WITH CTA BUTTON (Deutsch)
+          SECTION 6: BOTTOM LIGHT BLUE BANNER WITH MAIN CTA BUTTON (Deutsch)
           ========================================================================= */}
-      <section className="w-full bg-[#C2E8FF] py-14 md:py-20 px-4 text-center">
-        <div className="max-w-xl mx-auto flex flex-col items-center">
+      <section id="main-cta" className="w-full bg-[#C2E8FF] py-12 md:py-16 px-4 text-center scroll-mt-6">
+        <div className="w-full max-w-2xl mx-auto flex flex-col items-center px-4">
           <button
             onClick={handleCtaClick}
             type="button"
-            className="group relative inline-flex flex-col items-center justify-center bg-[#F4BA43] hover:bg-[#ebaa32] active:bg-[#df9f27] text-black font-extrabold text-lg sm:text-xl md:text-[22px] px-8 sm:px-12 py-3.5 sm:py-4 md:py-5 rounded-2xl shadow-md hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border border-[#e0a42f]/30 select-none"
-            aria-label="Ja! Ich möchte die Lösung erfahren."
+            className="group relative w-full inline-flex items-center justify-center bg-[#F4BA43] hover:bg-[#ebaa32] active:bg-[#df9f27] text-black font-extrabold text-base sm:text-xl md:text-2xl lg:text-[24px] px-6 sm:px-10 py-4 sm:py-5 md:py-5.5 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border border-[#e0a42f]/30 select-none"
+            aria-label="Ja! Ich möchte die Lösung erfahren"
           >
-            <span className="leading-tight tracking-tight">
-              {config.ctaTextLine1 || 'Ja! Ich möchte die'}
-            </span>
-            <span className="leading-tight tracking-tight">
-              {config.ctaTextLine2 || 'Lösung erfahren.'}
+            <span className="leading-tight tracking-tight whitespace-normal sm:whitespace-nowrap">
+              {config.ctaTextLine1 || 'Ja! Ich möchte die Lösung erfahren'}
             </span>
 
             {/* Subtle glow / hover shine */}
-            <div className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
           </button>
         </div>
       </section>
 
       {/* =========================================================================
-          BLANK FOOTER
+          FOOTER (Affiliate Disclosure)
           ========================================================================= */}
-      <footer className="w-full bg-white py-12 md:py-16 mt-auto">
-        <div className="max-w-4xl mx-auto px-4"></div>
+      <footer
+        style={{ fontSize: '14px', lineHeight: '22px', color: '#d5d5d5' }}
+        className="w-full bg-white py-10 md:py-14 mt-auto border-t border-gray-100"
+      >
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <p className="font-normal" style={{ fontSize: '14px', lineHeight: '22px', color: '#d5d5d5' }}>
+            Diese Seite enthält Affiliate-Links. Bei einem Kauf über diese Links erhalte ich möglicherweise eine Provision, ohne dass Dir zusätzliche Kosten entstehen.
+          </p>
+        </div>
       </footer>
     </div>
   );

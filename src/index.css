@@ -9,3 +9,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+@layer utilities {
+  .text-sky-blue {
+    color: #33B1FF;
+  }
+}
