@@ -5,25 +5,21 @@
 
 import React, { useState, useEffect } from 'react';
 import { VideoPlayer } from './components/VideoPlayer';
-import { ConfigDrawer } from './components/ConfigDrawer';
 import { LandingPageConfig } from './types';
-import { Sparkles } from 'lucide-react';
 
-const STORAGE_KEY = 'slimsana_landing_config_v3';
+const STORAGE_KEY = 'slimsana_landing_config_v4';
 
 const DEFAULT_CONFIG: LandingPageConfig = {
   videoUrl: 'https://www.youtube.com/embed/qqVMmCIfW6M?si=BcJU_tm7SNxQPcEw',
   videoThumbnailUrl: '/assets/video_thumbnail.png',
   ctaUrl: 'https://myslimsana.com/slimsana-vsl-fe?aff=jenildgstore&cam=CAMPAIGNKEY',
-  ctaTextLine1: 'Yes! I want to know',
-  ctaTextLine2: 'the resolution.',
+  ctaTextLine1: 'Ja! Ich möchte die',
+  ctaTextLine2: 'Lösung erfahren.',
   openInNewTab: true,
 };
 
 export default function App() {
   const [config, setConfig] = useState<LandingPageConfig>(DEFAULT_CONFIG);
-  const [isConfigOpen, setIsConfigOpen] = useState<boolean>(false);
-  const [showCtaNotification, setShowCtaNotification] = useState<boolean>(false);
 
   // Load configuration from localStorage on mount
   useEffect(() => {
@@ -37,28 +33,7 @@ export default function App() {
     }
   }, []);
 
-  const handleUpdateConfig = (newSettings: Partial<LandingPageConfig>) => {
-    setConfig((prev) => {
-      const updated = { ...prev, ...newSettings };
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      } catch {
-        // Ignore storage errors
-      }
-      return updated;
-    });
-  };
-
-  const handleResetDefault = () => {
-    setConfig(DEFAULT_CONFIG);
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // Ignore
-    }
-  };
-
-  const handleCtaClick = (e: React.MouseEvent) => {
+  const handleCtaClick = () => {
     if (config.ctaUrl && config.ctaUrl.trim() !== '') {
       let targetUrl = config.ctaUrl.trim();
       if (!/^https?:\/\//i.test(targetUrl)) {
@@ -69,44 +44,29 @@ export default function App() {
       } else {
         window.location.href = targetUrl;
       }
-    } else {
-      e.preventDefault();
-      setShowCtaNotification(true);
-      setTimeout(() => setShowCtaNotification(false), 4000);
-      setIsConfigOpen(true);
     }
   };
 
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col font-['Montserrat',sans-serif] selection:bg-sky-200 selection:text-black">
-      {/* Optional Top Notification when CTA is not yet configured */}
-      {showCtaNotification && (
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-2xl border border-gray-700 flex items-center gap-3 animate-bounce">
-          <Sparkles className="w-5 h-5 text-amber-400" />
-          <span className="text-sm font-medium">
-            CTA Link clicked! You can paste your link into the settings window.
-          </span>
-        </div>
-      )}
-
       {/* =========================================================================
-          HERO SECTION (From Screenshot 1)
+          HERO SECTION (From Screenshot 1 - Deutsch)
           ========================================================================= */}
       <header className="w-full pt-12 md:pt-16 pb-8 md:pb-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Headline */}
           <h1 className="text-2xl sm:text-3xl md:text-[38px] lg:text-[42px] font-black text-black tracking-tight leading-[1.2] mb-4">
-            SlimSana Supports Your Healthier, Happier{' '}
+            SlimSana unterstützt Deine gesündere, glücklichere{' '}
             <br className="hidden sm:inline" />
-            Everyday Routine with{' '}
-            <span className="text-[#38bdf8]">Ease and Confidence</span>
+            Alltagsroutine mit{' '}
+            <span className="text-[#38bdf8]">Leichtigkeit und Selbstvertrauen</span>
           </h1>
 
           {/* Subheading */}
           <p className="max-w-2xl mx-auto text-gray-700 text-sm sm:text-base md:text-[17px] font-normal leading-relaxed mb-8 md:mb-10 px-2">
-            SlimSana fits easily into your daily wellness routine with simple,
-            supportive habits. Feel good about taking a practical step forward
-            without extreme rules or complicated plans.
+            SlimSana fügt sich mühelos in Deine tägliche Wohlfühlroutine ein – mit einfachen,
+            unterstützenden Gewohnheiten. Fühle Dich gut dabei, einen praktischen Schritt nach vorne
+            zu machen, ganz ohne extreme Regeln oder komplizierte Pläne.
           </p>
 
           {/* Video Player */}
@@ -114,59 +74,58 @@ export default function App() {
             <VideoPlayer
               videoUrl={config.videoUrl}
               thumbnailUrl={config.videoThumbnailUrl}
-              onOpenSettings={() => setIsConfigOpen(true)}
             />
           </div>
         </div>
       </header>
 
       {/* =========================================================================
-          SECTION 2: LIGHT BLUE BANNER 1 (From Screenshot 2)
+          SECTION 2: LIGHT BLUE BANNER 1 (Deutsch)
           ========================================================================= */}
       <section className="w-full bg-[#C2E8FF] py-6 md:py-8 px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-lg sm:text-xl md:text-[26px] lg:text-[28px] font-extrabold text-black tracking-tight leading-snug">
-            What’s SlimSana’s surprising secret to making weight-loss goals feel achievable?
+            Was ist SlimSanas überraschendes Geheimnis, mit dem Abnehmziele endlich erreichbar werden?
           </h2>
         </div>
       </section>
 
       {/* =========================================================================
-          SECTION 3: NARRATIVE COPY (From Screenshot 2)
+          SECTION 3: NARRATIVE COPY (Deutsch)
           ========================================================================= */}
       <section className="w-full bg-white py-10 md:py-14 px-6">
         <div className="max-w-[800px] mx-auto space-y-6 md:space-y-7 text-[#222222] text-sm sm:text-base md:text-[16.5px] leading-[1.65]">
           <p>
-            Keep up with all the things with just minutes a day. See how you can work less and still see results. Even if you think you&apos;re a clutter-bug... or that your time will never come! We&apos;ve been there too!! Instead of juggling all the things. Get clarity!
+            Bleib am Ball – mit nur wenigen Minuten am Tag. Erfahre, wie Du mit weniger Aufwand spürbare Ergebnisse erzielst. Selbst wenn Du glaubst, dass Du es nie schaffst oder Deine Zeit nie kommen wird: Wir kennen dieses Gefühl nur zu gut! Statt ständig alles gleichzeitig zu jonglieren: Gewinne endlich Klarheit!
           </p>
 
           <p>
-            For a limited time, get access to our SlimSana brand name and begin creating your new life. Meet SlimSana, your simple path to feeling lighter, more confident, and in control without extreme routines or complicated meal plans.
+            Für begrenzte Zeit: Entdecke SlimSana und beginne noch heute, Dein neues Leben zu gestalten. Lerne SlimSana kennen – Deinen einfachen Weg, Dich leichter, selbstbewusster und voller Energie zu fühlen, ganz ohne extreme Diätroutinen oder komplizierte Ernährungspläne.
           </p>
 
           <p>
-            Enjoy convenient support that fits busy days, helping you build healthier habits one easy win at a time. Whether you’re starting fresh or getting back on track, SlimSana makes progress feel achievable.
+            Genieße praktische Unterstützung, die perfekt in Deinen vollen Alltag passt und Dir hilft, gesündere Gewohnheiten Schritt für Schritt aufzubauen. Egal, ob Du ganz neu startest oder wieder auf Kurs kommen möchtest: SlimSana macht spürbare Fortschritte wieder greifbar.
           </p>
 
           <p>
-            With clear guidance, dependable quality, and a satisfaction guarantee, you can take the next step with less worry and more confidence in the person you’re becoming.
+            Mit klarer Führung, verlässlicher Qualität und einer Zufriedenheitsgarantie kannst Du den nächsten Schritt mit weniger Sorgen und vollem Vertrauen in Dein neues Ich gehen.
           </p>
         </div>
       </section>
 
       {/* =========================================================================
-          SECTION 4: LIGHT BLUE BANNER 2 (From Screenshot 2)
+          SECTION 4: LIGHT BLUE BANNER 2 (Deutsch)
           ========================================================================= */}
       <section className="w-full bg-[#C2E8FF] py-6 md:py-8 px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-lg sm:text-xl md:text-[26px] lg:text-[28px] font-extrabold text-black tracking-tight leading-snug">
-            Could SlimSana’s smarter approach help you achieve lasting, healthy weight-loss results?
+            Könnte SlimSanas smarterer Ansatz auch Dir helfen, dauerhafte, gesunde Abnehmerfolge zu erzielen?
           </h2>
         </div>
       </section>
 
       {/* =========================================================================
-          SECTION 5: ABOUT ME, CLAUDIA (From Screenshot 3)
+          SECTION 5: ABOUT ME, CLAUDIA (Deutsch)
           ========================================================================= */}
       <section className="w-full bg-white py-12 md:py-16 px-6">
         <div className="max-w-[960px] mx-auto">
@@ -174,28 +133,28 @@ export default function App() {
             {/* Left Story Column */}
             <div className="md:col-span-7 lg:col-span-7">
               <h2 className="text-2xl sm:text-3xl md:text-[32px] font-extrabold text-black tracking-tight mb-5">
-                About Me, Claudia
+                Über mich, Claudia
               </h2>
 
               <div className="space-y-4 md:space-y-5 text-[#222222] text-sm sm:text-base md:text-[16px] leading-[1.65]">
                 <p>
-                  I used to start every Monday with big promises and end every Friday feeling stuck. My energy was low, my routine was all over the place, and “getting healthy” felt like another full-time job.
+                  Ich habe früher jeden Montag mit großen Versprechungen begonnen und endete jeden Freitag wieder frustriert und festgefahren. Meine Energie war am Boden, meine Routine ein einziges Durcheinander, und „gesund werden“ fühlte sich an wie ein weiterer Vollzeitjob.
                 </p>
 
                 <p>
-                  Then I found SlimSana. No drama. No complicated plan. Just a simple, convenient addition to my daily routine that helped me stay focused on my goals. One day at a time, I started making better choices, moving with more confidence, and showing up for myself again.
+                  Dann stieß ich auf SlimSana. Kein Drama. Kein komplizierter Plan. Einfach eine praktische, bequeme Ergänzung meiner täglichen Routine, die mir half, mich auf meine Ziele zu fokussieren. Schritt für Schritt traf ich bessere Entscheidungen, bewegte mich mit neuem Selbstvertrauen und begann, wieder für mich selbst da zu sein.
                 </p>
 
                 <p>
-                  SlimSana didn’t do the work for me but it made the journey feel easier to manage. It became my daily reminder that progress doesn’t have to be perfect to be powerful.
+                  SlimSana hat die Arbeit nicht für mich erledigt, aber es hat den Weg so viel leichter gemacht. Es wurde zu meiner täglichen Erinnerung daran, dass Fortschritt nicht perfekt sein muss, um unglaublich wirksam zu sein.
                 </p>
 
                 <p>
-                  Weeks later, I noticed the real shift: more confidence, more consistency, and a routine I could actually stick with. I went from constantly restarting to finally building momentum.
+                  Wochen später bemerkte ich die echte Veränderung: mehr Selbstbewusstsein, mehr Beständigkeit und eine Routine, an die ich mich wirklich halten konnte. Ich ging vom ständigen Neuanfangen dazu über, endlich echten Schwung aufzubauen.
                 </p>
 
                 <p>
-                  My transformation started with one simple choice: SlimSana. If you’re ready to stop waiting for the “right time” and start moving toward your goals, make SlimSana part of your routine today.
+                  Meine Transformation begann mit einer einzigen, einfachen Entscheidung: SlimSana. Wenn Du bereit bist, nicht mehr auf den „richtigen Zeitpunkt“ zu warten, sondern endlich Deine Ziele anzupacken, mache SlimSana noch heute zum Teil Deiner Routine.
                 </p>
               </div>
             </div>
@@ -216,7 +175,7 @@ export default function App() {
       </section>
 
       {/* =========================================================================
-          SECTION 6: BOTTOM LIGHT BLUE BANNER WITH CTA BUTTON (From Screenshot 3)
+          SECTION 6: BOTTOM LIGHT BLUE BANNER WITH CTA BUTTON (Deutsch)
           ========================================================================= */}
       <section className="w-full bg-[#C2E8FF] py-14 md:py-20 px-4 text-center">
         <div className="max-w-xl mx-auto flex flex-col items-center">
@@ -224,13 +183,13 @@ export default function App() {
             onClick={handleCtaClick}
             type="button"
             className="group relative inline-flex flex-col items-center justify-center bg-[#F4BA43] hover:bg-[#ebaa32] active:bg-[#df9f27] text-black font-extrabold text-lg sm:text-xl md:text-[22px] px-8 sm:px-12 py-3.5 sm:py-4 md:py-5 rounded-2xl shadow-md hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border border-[#e0a42f]/30 select-none"
-            aria-label="Yes! I want to know the resolution."
+            aria-label="Ja! Ich möchte die Lösung erfahren."
           >
             <span className="leading-tight tracking-tight">
-              {config.ctaTextLine1 || 'Yes! I want to know'}
+              {config.ctaTextLine1 || 'Ja! Ich möchte die'}
             </span>
             <span className="leading-tight tracking-tight">
-              {config.ctaTextLine2 || 'the resolution.'}
+              {config.ctaTextLine2 || 'Lösung erfahren.'}
             </span>
 
             {/* Subtle glow / hover shine */}
@@ -240,24 +199,11 @@ export default function App() {
       </section>
 
       {/* =========================================================================
-          FOOTER (Blank with Affiliate Disclaimer)
+          BLANK FOOTER
           ========================================================================= */}
-      <footer className="w-full bg-white py-12 px-4 text-center mt-auto">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xs text-gray-400 leading-relaxed font-normal">
-            Affiliate Disclaimer: Please note that some links on this page are affiliate links, and we may earn a commission if you make a purchase through them at no extra cost to you.
-          </p>
-        </div>
+      <footer className="w-full bg-white py-12 md:py-16 mt-auto">
+        <div className="max-w-4xl mx-auto px-4"></div>
       </footer>
-
-      {/* Config Drawer for Video and CTA URL */}
-      <ConfigDrawer
-        config={config}
-        onUpdateConfig={handleUpdateConfig}
-        onResetDefault={handleResetDefault}
-        isOpen={isConfigOpen}
-        onToggle={() => setIsConfigOpen(!isConfigOpen)}
-      />
     </div>
   );
 }
