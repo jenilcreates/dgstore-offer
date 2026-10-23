@@ -7,11 +7,11 @@ import React, { useState, useEffect } from 'react';
 import { LandingPageConfig } from './types';
 import { ChevronDown } from 'lucide-react';
 
-const STORAGE_KEY = 'slimsana_landing_config_v8';
+const STORAGE_KEY = 'slimsana_landing_config_v9';
 
 const DEFAULT_CONFIG: LandingPageConfig = {
   videoUrl: 'https://www.youtube.com/embed/qqVMmCIfW6M?si=BcJU_tm7SNxQPcEw',
-  videoThumbnailUrl: '/assets/competition_banner_clean.webp',
+  videoThumbnailUrl: '/assets/guarantee_banner_60days.webp',
   ctaUrl: 'https://myslimsana.com/slimsana-vsl-fe?aff=jenildgstore&cam=CAMPAIGNKEY',
   ctaTextLine1: 'Ja! Ich möchte die Lösung erfahren',
   ctaTextLine2: '',
@@ -93,22 +93,6 @@ export default function App() {
               <ChevronDown className="w-5 h-5 text-black group-hover:translate-y-0.5 transition-transform" />
             </button>
           </div>
-
-          {/* Header Banner Image (Clean Uploaded WebP) */}
-          <div className="w-full max-w-[840px] mx-auto px-4">
-            <div
-              onClick={handleScrollToCta}
-              className="relative aspect-video w-full rounded-md overflow-hidden bg-[#083A1A] shadow-xl group border border-gray-100 cursor-pointer flex items-center justify-center transition-transform hover:scale-[1.01]"
-              title="Klicken, um mehr zu erfahren"
-            >
-              <img
-                src="/assets/competition_banner_clean.webp"
-                alt="SlimSana vs. the competition"
-                className="w-full h-full object-contain"
-                loading="eager"
-              />
-            </div>
-          </div>
         </div>
       </header>
 
@@ -124,79 +108,80 @@ export default function App() {
       </section>
 
       {/* =========================================================================
-          SECTION 3: FRUSTRATING FEELING & GLP-1 STORY (Image + Text Underneath)
+          SECTION 3: FRUSTRATING FEELING & GLP-1 STORY (Side-by-side + Guarantee Banner)
           ========================================================================= */}
       <section className="w-full bg-white py-12 md:py-16 px-6">
-        <div className="max-w-[840px] mx-auto">
-          {/* Centered Portrait Image with no borders */}
-          <div className="flex justify-center mb-8 md:mb-12">
-            <div className="w-full max-w-[320px] sm:max-w-[360px]">
-              <img
-                src="/assets/slimsana_bottles_portrait.webp"
-                alt="SlimSana Flaschen"
-                className="w-full h-auto object-contain mx-auto"
-                loading="lazy"
-              />
+        <div className="max-w-[960px] mx-auto">
+          {/* Side-by-side: Left side green bottles, Right side context */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            {/* Left Column: Green Bottles Image */}
+            <div className="md:col-span-5 flex justify-center">
+              <div className="w-full max-w-[320px] md:max-w-[360px]">
+                <img
+                  src="/assets/slimsana_bottles_portrait.webp"
+                  alt="SlimSana Flaschen"
+                  className="w-full h-auto object-contain mx-auto"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            {/* Right Column: Context without excessive blank spaces */}
+            <div className="md:col-span-7">
+              <div className="space-y-3.5 text-[#222222] text-sm sm:text-base leading-relaxed">
+                <p>
+                  Sie hören überall Geschichten von Menschen, die ihre Gewohnheiten ändern und sich gesünder fühlen. Freunde und Kollegen, die davon berichten, wie energiegeladen und ausgeglichen sie sind.
+                </p>
+
+                <p className="font-semibold text-gray-900">
+                  Aber bei Ihnen? Fehlanzeige.
+                </p>
+
+                <p>
+                  Ihr Hausarzt wiegelt ab: „Sie sind nicht krank genug für GLP-1-Medikamente.“ Die Privatpraxis verlangt mindestens 300 Euro pro Monat – Geld, das Sie einfach nicht haben. Die Wartelisten sind endlos. Monate vergehen. Ihr Gewicht steigt immer weiter.
+                </p>
+
+                <p>
+                  Und währenddessen kämpfen Sie jeden Tag gegen denselben unbarmherzigen Feind: Der Heißhunger um 15:00 Uhr, der all Ihre Disziplin zerstört. Der nächtliche Heißhunger auf Süßes, gegen den Ihr Wille vollkommen machtlos ist. Die unkontrollierbaren Gelüste, die Sie zu einer Fremden im eigenen Körper machen.
+                </p>
+
+                <p>
+                  Sie wissen genau, was Sie essen sollten. Sie kennen jeden Diät-Tipp. Aber Ihr Gehirn arbeitet gegen Sie.
+                </p>
+
+                <p className="font-semibold text-gray-900">
+                  Das war bisher die traurige Realität.
+                </p>
+
+                <p>
+                  Was jahrelang Hollywood-Stars vorbehalten war, können Sie sich jetzt ganz einfach in die eigene Küche holen.
+                </p>
+
+                <p className="font-bold text-black">
+                  Eine Kapsel am Tag. Das ist alles, was Sie brauchen.
+                </p>
+
+                <p className="text-gray-700">
+                  Keine komplizierten Schritte. Keine invasiven Methoden. Keine Terminprobleme. Keine Wartelisten.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Simple Text Section Placed Under the Image */}
-          <div className="space-y-4 md:space-y-5 text-[#222222] text-sm sm:text-base md:text-[16px] leading-[1.65]">
-            <p>
-              Sie hören überall Geschichten von Menschen, die ihre Gewohnheiten ändern und sich gesünder fühlen. Freunde und Kollegen, die davon berichten, wie energiegeladen und ausgeglichen sie sind.
-            </p>
-
-            <p>
-              Aber bei Ihnen? Fehlanzeige.
-            </p>
-
-            <p>
-              Ihr Hausarzt wiegelt ab: „Sie sind nicht krank genug für GLP-1-Medikamente.“
-            </p>
-
-            <p>
-              Die Privatpraxis verlangt mindestens 300 Euro pro Monat – Geld, das Sie einfach nicht haben.
-            </p>
-
-            <p>
-              Die Wartelisten sind endlos. Monate vergehen. Ihr Gewicht steigt immer weiter.
-            </p>
-
-            <p>
-              Und währenddessen kämpfen Sie jeden Tag gegen denselben unbarmherzigen Feind:
-            </p>
-
-            <p>
-              Der Heißhunger um 15:00 Uhr, der all Ihre Disziplin zerstört.
-            </p>
-
-            <p>
-              Der nächtliche Heißhunger auf Süßes, gegen den Ihr Wille vollkommen machtlos ist.
-            </p>
-
-            <p>
-              Die unkontrollierbaren Gelüste, die Sie zu einer Fremden im eigenen Körper machen.
-            </p>
-
-            <p>
-              Sie wissen genau, was Sie essen sollten. Sie kennen jeden Diät-Tipp. Aber Ihr Gehirn arbeitet gegen Sie.
-            </p>
-
-            <p>
-              Das war bisher die traurige Realität.
-            </p>
-
-            <p>
-              Was jahrelang Hollywood-Stars vorbehalten war, können Sie sich jetzt ganz einfach in die eigene Küche holen.
-            </p>
-
-            <p>
-              Eine Kapsel am Tag. Das ist alles, was Sie brauchen.
-            </p>
-
-            <p>
-              Keine komplizierten Schritte. Keine invasiven Methoden. Keine Terminprobleme. Keine Wartelisten.
-            </p>
+          {/* 60-Tage Garantie Banner Moved Under This Section */}
+          <div className="mt-12 md:mt-16 pt-4">
+            <div
+              onClick={handleScrollToCta}
+              className="relative aspect-video w-full max-w-[840px] mx-auto rounded-md overflow-hidden bg-[#FAF2E7] shadow-xl group border border-gray-100 cursor-pointer flex items-center justify-center transition-transform hover:scale-[1.01]"
+              title="Klicken, um mehr zu erfahren"
+            >
+              <img
+                src="/assets/guarantee_banner_60days.webp"
+                alt="Ihre 60-Tage Wirkt-besser-als-erwartet Garantie"
+                className="w-full h-full object-contain"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </section>
